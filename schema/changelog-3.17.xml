@@ -10,9 +10,6 @@
 
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="tc_servers" />
-      </not>
-      <not>
         <columnExists tableName="users" columnName="administrator" />
       </not>
     </preConditions>
@@ -22,12 +19,6 @@
   </changeSet>
 
   <changeSet author="author" id="changelog-3.17">
-
-    <preConditions onFail="MARK_RAN">
-      <not>
-        <tableExists tableName="tc_servers" />
-      </not>
-    </preConditions>
 
     <addColumn tableName="events">
       <column name="maintenanceid" type="INT" />
@@ -91,5 +82,4 @@
     <addForeignKeyConstraint baseTableName="device_maintenance" baseColumnNames="maintenanceid" constraintName="fk_device_maintenance_maintenanceid" referencedTableName="maintenances" referencedColumnNames="id" onDelete="CASCADE" />
 
   </changeSet>
-
 </databaseChangeLog>

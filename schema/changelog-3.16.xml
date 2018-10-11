@@ -8,12 +8,6 @@
 
   <changeSet author="author" id="changelog-3.16">
 
-    <preConditions onFail="MARK_RAN">
-      <not>
-        <tableExists tableName="tc_servers" />
-      </not>
-    </preConditions>
-
     <addColumn tableName="devices">
       <column name="disabled" type="BOOLEAN" defaultValueBoolean="false" />
     </addColumn>
@@ -33,5 +27,4 @@
     <addForeignKeyConstraint baseColumnNames="calendarid" baseTableName="notifications" constraintName="fk_notification_calendar_calendarid" onDelete="SET NULL" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="calendars" />
 
   </changeSet>
-
 </databaseChangeLog>

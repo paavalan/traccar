@@ -111,7 +111,6 @@ public final class Log {
                     return "TRACE";
                 case "FINER":
                 case "FINE":
-                case "CONFIG":
                     return "DEBUG";
                 case "INFO":
                     return "INFO";
@@ -170,7 +169,6 @@ public final class Log {
         Level level = Level.parse(config.getString("logger.level").toUpperCase());
         rootLogger.setLevel(level);
         handler.setLevel(level);
-        handler.setFilter(record -> record != null && !record.getLoggerName().startsWith("sun"));
 
         rootLogger.addHandler(handler);
     }

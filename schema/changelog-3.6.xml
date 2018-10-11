@@ -10,7 +10,7 @@
 
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="tc_servers" />
+        <tableExists tableName="events" />
       </not>
     </preConditions>
 
@@ -112,5 +112,4 @@
     </addColumn>
 
   </changeSet>
-
 </databaseChangeLog>

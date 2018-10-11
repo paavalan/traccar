@@ -10,7 +10,7 @@
 
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="tc_servers" />
+        <tableExists tableName="groups" />
       </not>
     </preConditions>
 
@@ -65,5 +65,4 @@
     </addColumn>
 
   </changeSet>
-
 </databaseChangeLog>

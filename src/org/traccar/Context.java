@@ -25,6 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 import com.fasterxml.jackson.datatype.jsr353.JSR353Module;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.apache.velocity.app.VelocityEngine;
 import org.eclipse.jetty.util.URIUtil;
 import org.slf4j.Logger;
@@ -39,7 +41,6 @@ import org.traccar.database.DeviceManager;
 import org.traccar.database.DriversManager;
 import org.traccar.database.IdentityManager;
 import org.traccar.database.LdapProvider;
-import org.traccar.database.MailManager;
 import org.traccar.database.MaintenancesManager;
 import org.traccar.database.MediaManager;
 import org.traccar.database.NotificationManager;
@@ -88,7 +89,6 @@ import org.traccar.web.WebServer;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.ext.ContextResolver;
 
 public final class Context {
 
@@ -139,12 +139,6 @@ public final class Context {
 
     public static LdapProvider getLdapProvider() {
         return ldapProvider;
-    }
-
-    private static MailManager mailManager;
-
-    public static MailManager getMailManager() {
-        return mailManager;
     }
 
     private static MediaManager mediaManager;
@@ -314,15 +308,6 @@ public final class Context {
                 config.getDouble("event.motion.speedThreshold", 0.01));
     }
 
-    private static class ObjectMapperContextResolver implements ContextResolver<ObjectMapper> {
-
-        @Override
-        public ObjectMapper getContext(Class<?> clazz) {
-            return objectMapper;
-        }
-
-    }
-
     public static Geocoder initGeocoder() {
         String type = config.getString("geocoder.type", "google");
         String url = config.getString("geocoder.url");
@@ -380,7 +365,9 @@ public final class Context {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
 
-        client = ClientBuilder.newClient().register(new ObjectMapperContextResolver());
+        JacksonJsonProvider jsonProvider =
+                new JacksonJaxbJsonProvider(objectMapper, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS);
+        client = ClientBuilder.newClient().register(jsonProvider);
 
 
         if (config.hasKey("database.url")) {
@@ -390,8 +377,6 @@ public final class Context {
         if (config.getBoolean("ldap.enable")) {
             ldapProvider = new LdapProvider(config);
         }
-
-        mailManager = new MailManager();
 
         mediaManager = new MediaManager(config.getString("media.path"));
 
@@ -412,7 +397,7 @@ public final class Context {
         }
 
         if (config.getBoolean("web.enable")) {
-            webServer = new WebServer(config);
+            webServer = new WebServer(config, dataManager.getDataSource());
         }
 
         permissionsManager = new PermissionsManager(dataManager, usersManager);
@@ -510,7 +495,9 @@ public final class Context {
         config = new Config();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JSR353Module());
-        client = ClientBuilder.newClient().register(new ObjectMapperContextResolver());
+        JacksonJsonProvider jsonProvider =
+                new JacksonJaxbJsonProvider(objectMapper, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS);
+        client = ClientBuilder.newClient().register(jsonProvider);
         identityManager = testIdentityManager;
     }
 

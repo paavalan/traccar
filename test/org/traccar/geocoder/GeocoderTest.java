@@ -13,7 +13,7 @@ public class GeocoderTest {
     @Test
     public void test() throws InterruptedException {
         Locale.setDefault(Locale.US);
-        testBan();
+        testGoogle();
     }
 
     private String address;
