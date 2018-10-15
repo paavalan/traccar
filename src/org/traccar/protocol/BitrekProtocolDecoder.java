@@ -34,16 +34,17 @@ public class BitrekProtocolDecoder extends BaseProtocolDecoder {
 
     private DeviceSession parseIdentification(Channel channel, SocketAddress remoteAddress, ByteBuf buf) {
 
-        int length = buf.readUnsignedShort();
-        String imei = buf.toString(buf.readerIndex(), length, StandardCharsets.US_ASCII);
+        int length = buf.readableBytes();
+        /*String imei = buf.toString(buf.readerIndex(), length, StandardCharsets.US_ASCII);*/
+        String imei = buf.toString(3, 15, StandardCharsets.US_ASCII);
         DeviceSession deviceSession = getDeviceSession(channel, remoteAddress, imei);
 
         if (channel != null) {
             ByteBuf response = Unpooled.buffer(1);
             if (deviceSession != null) {
-                response.writeByte(1);
-            } else {
                 response.writeByte(0);
+            } else {
+                response.writeByte(1);
             }
             channel.writeAndFlush(new NetworkMessage(response, remoteAddress));
         }

@@ -18,10 +18,12 @@ public class BitrekFrameDecoder extends BaseFrameDecoder {
 
         // Read packet
         int length = buf.getUnsignedShort(buf.readerIndex());
+        int read = buf.readableBytes();
         if (length > 0) {
-            if (buf.readableBytes() >= (length + 2)) {
+            /*if (buf.readableBytes() >= (length + 2)) {
                 return buf.readRetainedSlice(length + 2);
-            }
+            }*/
+            return buf.readRetainedSlice(read);
         } else {
             int dataLength = buf.getInt(buf.readerIndex() + 4);
             if (buf.readableBytes() >= (dataLength + 12)) {
