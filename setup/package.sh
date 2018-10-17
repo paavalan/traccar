@@ -22,7 +22,7 @@ check_requirement () {
   fi 
 }
 
-check_requirement "ls ../../ext-6.2.0" "Missing ExtJS (https://www.sencha.com/legal/GPL/)"
+check_requirement "ls ../../ext-6.6.0" "Missing ExtJS (https://www.sencha.com/legal/GPL/)"
 check_requirement "ls innosetup-*.exe" "Missing Inno Setup (http://www.jrsoftware.org/isdl.php)"
 check_requirement "ls java-*.windows.x86_64.zip" "Missing Windows 64 Java (https://github.com/ojdkbuild/ojdkbuild)"
 check_requirement "ls jdk-*-linux-x64.zip" "Missing Linux 64 Java (https://github.com/ojdkbuild/contrib_jdk10u-ci/releases)"

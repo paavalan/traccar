@@ -4,7 +4,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import org.traccar.*;
+import org.traccar.BaseProtocolDecoder;
+import org.traccar.Context;
+import org.traccar.DeviceSession;
+import org.traccar.NetworkMessage;
 import org.traccar.helper.BitUtil;
 import org.traccar.helper.UnitsConverter;
 import org.traccar.model.CellTower;
@@ -42,9 +45,9 @@ public class BitrekProtocolDecoder extends BaseProtocolDecoder {
         if (channel != null) {
             ByteBuf response = Unpooled.buffer(1);
             if (deviceSession != null) {
-                response.writeByte(0);
-            } else {
                 response.writeByte(1);
+            } else {
+                response.writeByte(0);
             }
             channel.writeAndFlush(new NetworkMessage(response, remoteAddress));
         }
