@@ -22,14 +22,14 @@ check_requirement () {
   fi 
 }
 
-check_requirement "ls ../../ext-6.6.0" "Missing ExtJS (https://www.sencha.com/legal/GPL/)"
+check_requirement "ls ~/ext-6.6.0" "Missing ExtJS (https://www.sencha.com/legal/GPL/)"
 check_requirement "ls innosetup-*.exe" "Missing Inno Setup (http://www.jrsoftware.org/isdl.php)"
-check_requirement "ls java-*.windows.x86_64.zip" "Missing Windows 64 Java (https://github.com/ojdkbuild/ojdkbuild)"
+#check_requirement "ls java-*.windows.x86_64.zip" "Missing Windows 64 Java (https://github.com/ojdkbuild/ojdkbuild)"
 check_requirement "ls jdk-*-linux-x64.zip" "Missing Linux 64 Java (https://github.com/ojdkbuild/contrib_jdk10u-ci/releases)"
-check_requirement "ls jdk-*-linux-armhf.zip" "Missing Linux ARM Java (https://github.com/ojdkbuild/contrib_jdk10u-aarch32-ci/releases)"
+#check_requirement "ls jdk-*-linux-armhf.zip" "Missing Linux ARM Java (https://github.com/ojdkbuild/contrib_jdk10u-aarch32-ci/releases)"
 check_requirement "which sencha" "Missing sencha cmd package (https://www.sencha.com/products/extjs/cmd-download/)"
 check_requirement "which unzip" "Missing unzip"
-check_requirement "which wine" "Missing wine"
+#check_requirement "which wine" "Missing wine"
 check_requirement "which innoextract" "Missing innoextract"
 check_requirement "which makeself" "Missing makeself"
 check_requirement "which jlink" "Missing jlink"
@@ -104,7 +104,7 @@ package_unix () {
 prepare
 
 package_other
-package_windows
-package_unix
+#package_windows
+#package_unix
 
 cleanup
