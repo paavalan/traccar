@@ -15,12 +15,10 @@
     <entry key='web.path'>./web</entry>
     <entry key='web.cacheControl'>max-age=3600,public</entry>
 
-    <!--<entry key='geocoder.enable'>true</entry>
-    <entry key='geocoder.type'>nominatim</entry>
-    <entry key='geocoder.url'>https://nominatim.openstreetmap.org/reverse.php</entry>-->
-
     <entry key='geocoder.enable'>true</entry>
-    <entry key='geocoder.type'>google</entry>
+    <entry key='geocoder.type'>opencage</entry>
+    <entry key='geocoder.url'>http://api.opencagedata.com/geocode/v1</entry>
+    <entry key='geocoder.key'>41db543c408b4d138b171f712c93435c</entry>
 
     <entry key='logger.enable'>true</entry>
     <entry key='logger.level'>info</entry>
@@ -260,5 +258,4 @@
     <entry key='smartsole.port'>5178</entry>
     <entry key='its.port'>5179</entry>
     <entry key='bitrek.port'>5180</entry>
-
 </properties>
